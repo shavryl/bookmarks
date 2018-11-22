@@ -5,4 +5,4 @@ __pycache__
 .pytest_cache/
 .coverage
 htmlcov/
-bookmarks/__pycache__/
+/__pycache__/
