@@ -25,7 +25,7 @@ SECRET_KEY = 'm0@l3jrw!n6f6#%3^@f@o(x@74iw2q17vnk$#-+m@i&@fb@b^-'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['mysite.com', 'localhost', '127.0.0.1']
 
 
 # Application definition
@@ -105,8 +105,13 @@ AUTH_PASSWORD_VALIDATORS = [
 AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',
     'account.authentication.EmailAuthBackend',
+    'social_core.backends.google.GoogleOAuth2',
 ]
 
+
+SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = '1024914766949-o9aq1tm76tiqd0o3rlbf15bgmg7a31gi.apps.googleusercontent.com'
+
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = 'FvtEUCX58fv08Vq0aoXyBEGR'
 
 LOGIN_REDIRECT_URL = 'dashboard'
 
