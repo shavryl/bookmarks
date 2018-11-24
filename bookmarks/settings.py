@@ -29,7 +29,7 @@ ALLOWED_HOSTS = [
     'mysite.com',
     'localhost',
     '127.0.0.1',
-    '48c1397e.ngrok.io',
+    '085bd4eb.ngrok.io',
 ]
 
 
