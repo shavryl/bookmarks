@@ -110,23 +110,3 @@ def image_ranking(request):
     return render(request, 'images/image/ranking.html',
                   {'section': 'images',
                    'most_viewed': most_viewed})
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
