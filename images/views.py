@@ -5,10 +5,18 @@ from django.shortcuts import get_object_or_404
 from django.http import JsonResponse, HttpResponse
 from django.views.decorators.http import require_POST
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.conf import settings
 from .models import Image
 from .forms import ImageCreateForm
 from common.decorators import ajax_required
 from actions.utils import create_action
+import redis
+
+
+# redis connection
+r = redis.StrictRedis(host=settings.REDIS_HOST,
+                      port=settings.REDIS_PORT,
+                      db=settings.REDIS_DB)
 
 
 @login_required
