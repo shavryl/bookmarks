@@ -43,8 +43,15 @@ def image_create(request):
 
 def image_detail(request, id, slug):
     image = get_object_or_404(Image, id=id, slug=slug)
+    # Increment total image views by 1
+    total_views = r.incr('image:{}:views'.format(image.id))
+    # Increment image ranking by 1
+    r.zincrby('image_ranking', image.id, 1)
+
     return render(request, 'images/image/detail.html',
-                  {'section': 'images', 'image': image})
+                  {'section': 'images',
+                   'image': image,
+                   'total_views': total_views})
 
 
 @ajax_required
@@ -87,6 +94,23 @@ def image_list(request):
                       {'section': 'images', 'images': images})
     return render(request, 'images/image/list.html',
                   {'section': 'images', 'images': images})
+
+
+@login_required
+def image_ranking(request):
+    # Get image ranking dictionary
+    image_ranking = r.zrange('image_ranking', 0, -1,
+                             desc=True)[:10]
+    image_ranking_ids = [int(id) for id in image_ranking]
+    # Get most viewed images
+    most_viewed = list(Image.objects.filter(
+                        id__in=image_ranking_ids))
+    most_viewed.sort(key=lambda x: image_ranking_ids.index(x.id))
+
+    return render(request, 'images/image/ranking.html',
+                  {'section': 'images',
+                   'most_viewed': most_viewed})
+
 
 
 
